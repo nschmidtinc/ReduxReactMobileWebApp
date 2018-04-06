@@ -7,6 +7,7 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axiosorders.js";
 import Spinner from "../../components/UI/Spinner";
 import withErrorHandler from "../../components/WithErrorHandler/WithErrorHandler";
+import ProfilePage from "../ProfilePage";
 const INGREDIENT_PRICES = {
   salad: 0.5,
   cheese: 0.3,
@@ -20,7 +21,8 @@ class BurgerBuilder extends Component {
     totalPrice: 4,
     buyBurger: false,
     burgerBought: false,
-    loading: false
+    loading: false,
+    error: null
   };
   componentDidMount() {
     axios
@@ -28,6 +30,11 @@ class BurgerBuilder extends Component {
       .then(response => {
         this.setState({
           ingredients: response.data
+        });
+      })
+      .catch(error => {
+        this.setState({
+          error: true
         });
       });
   }
@@ -110,7 +117,7 @@ class BurgerBuilder extends Component {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
 
-    let burger = <Spinner />;
+    let burger = this.state.error ? <p>flagrant system error</p> : <Spinner />;
     let orderSummary = <Spinner />;
 
     if (this.state.ingredients) {
@@ -148,6 +155,7 @@ class BurgerBuilder extends Component {
           {orderSummary}
         </Modal>
         {burger}
+        <ProfilePage />
       </Aux>
     );
   }
