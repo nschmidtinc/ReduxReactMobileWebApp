@@ -17,7 +17,7 @@ class ProfilePage extends Component {
     avatar: "",
     isUploading: false,
     progress: 0,
-    avatarURL: ""
+    avatarURL: " "
   };
 
   handleChangeUsername = event =>
@@ -36,6 +36,7 @@ class ProfilePage extends Component {
       .child(filename)
       .getDownloadURL()
       .then(url => this.setState({ avatarURL: url }));
+    console.log(this.state);
   };
 
   render() {
