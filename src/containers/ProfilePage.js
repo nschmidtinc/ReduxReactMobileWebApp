@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import FileUploader from "react-firebase-file-uploader";
+import classes from "./ProfilePage";
 const config = {
   apiKey: "AIzaSyDlJj3G-DLmLecV5B9eqMTXw61y2Hi9mNg",
   authDomain: "burgerback-d0dfd.firebaseapp.com",
@@ -41,28 +42,29 @@ class ProfilePage extends Component {
 
   render() {
     return (
-      <div>
+      <div className={classes.FileUploader}>
         <form>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={this.state.username}
-            name="username"
-            onChange={this.handleChangeUsername}
-          />
-          <label>Avatar:</label>
           {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
-          {this.state.avatarURL && <img src={this.state.avatarURL} />}
-          <FileUploader
-            accept="image/*"
-            name="avatar"
-            randomizeFilename
-            storageRef={firebase.storage().ref("images")}
-            onUploadStart={this.handleUploadStart}
-            onUploadError={this.handleUploadError}
-            onUploadSuccess={this.handleUploadSuccess}
-            onProgress={this.handleProgress}
-          />
+          {this.state.avatarURL && (
+            <img
+              src={this.state.avatarURL}
+              style={{ width: "100%", margin: "auto" }}
+            />
+          )}
+          <div>
+            <FileUploader
+              className={classes.FileUploader}
+              accept="image/*"
+              name="avatar"
+              randomizeFilename
+              storageRef={firebase.storage().ref("images")}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccess}
+              onClick={this.props.handleClick(this.props.avatarURL)}
+              onProgress={this.handleProgress}
+            />
+          </div>
         </form>
       </div>
     );

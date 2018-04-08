@@ -22,7 +22,8 @@ class BurgerBuilder extends Component {
     buyBurger: false,
     burgerBought: false,
     loading: false,
-    error: null
+    error: null,
+    imageURL: null
   };
   componentDidMount() {
     axios
@@ -90,6 +91,9 @@ class BurgerBuilder extends Component {
     console.log("you clicked me!", this.state.burgerBought);
     this.setState({ burgerBought: false });
   };
+  pictureHandler = avatarURL => {
+    this.setState({ imageURL: avatarURL });
+  };
   purchaseContinueHandler = () => {
     this.setState({ loading: true });
     const order = {
@@ -97,7 +101,8 @@ class BurgerBuilder extends Component {
       price: this.state.totalPrice,
       customer: {
         name: "nathan",
-        age: "45"
+        age: "45",
+        imageURL: this.state.imageURL
       }
     };
 
@@ -124,6 +129,7 @@ class BurgerBuilder extends Component {
       burger = (
         <Aux>
           <Burger ingredients={this.state.ingredients} />
+          <ProfilePage handleClick={this.pictureHandler.bind(this)} />
           <BuildControls
             ingredientAdded={this.addIngredientHandler}
             ingredientRemoved={this.removeIngredientHandler}
@@ -131,6 +137,7 @@ class BurgerBuilder extends Component {
             disabled={disabledInfo}
             bought={this.purchaseHandler}
             buyBurger={this.state.buyBurger}
+            imageURL={this.state.imageURL}
           />
         </Aux>
       );
@@ -155,7 +162,6 @@ class BurgerBuilder extends Component {
           {orderSummary}
         </Modal>
         {burger}
-        <ProfilePage />
       </Aux>
     );
   }

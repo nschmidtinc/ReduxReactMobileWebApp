@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./BuildControls.css";
 import BuildControl from "./BuildControl";
+import ProfilePage from "../../../containers/ProfilePage";
 const controls = [
   { label: "Salad", type: "salad" },
   { label: "Meat", type: "meat" },
@@ -23,9 +24,14 @@ const buildControls = props => {
           disabled={props.disabled[ctrl.type]}
         />
       ))}
-      <button className={classes.OrderButton} disabled={!props.buyBurger} onClick={props.bought}>
+      <button
+        className={classes.OrderButton}
+        disabled={!props.buyBurger}
+        onClick={props.bought}
+      >
         Order Now
       </button>
+      <ProfilePage />
     </div>
   );
 };
