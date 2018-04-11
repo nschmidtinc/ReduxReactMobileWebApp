@@ -1,27 +1,35 @@
 import React, { Component } from "react";
 import Modal from "../UI/Modal";
 import Aux from "../../HOC/Aux";
+
 const withErrorHandler = (WrappedComponent, axios) => {
   return class extends Component {
     state = {
       error: null
     };
+
     componentWillMount() {
-      this.requestInterceptor = axios.interceptors.request.use(req => {
+      this.reqInterceptor = axios.interceptors.request.use(req => {
         this.setState({ error: null });
         return req;
       });
-      this.responseInterceptor = axios.interceptors.response.use(
+      this.resInterceptor = axios.interceptors.response.use(
         res => res,
         error => {
           this.setState({ error: error });
         }
       );
     }
+
     componentWillUnmount() {
-      axios.interceptors.eject(this.requestInterceptor);
-      axios.interceptors.eject(this.responseInterceptor);
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.response.eject(this.resInterceptor);
     }
+
+    errorConfirmedHandler = () => {
+      this.setState({ error: null });
+    };
+
     errorConfirmedHandler = () => {
       this.setState({ error: null });
     };

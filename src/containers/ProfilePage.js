@@ -61,7 +61,7 @@ class ProfilePage extends Component {
               onUploadStart={this.handleUploadStart}
               onUploadError={this.handleUploadError}
               onUploadSuccess={this.handleUploadSuccess}
-              onClick={this.props.handleClick(this.props.avatarURL)}
+              //onClick={this.props.handleClick(this.props.avatarURL)}
               onProgress={this.handleProgress}
             />
           </div>

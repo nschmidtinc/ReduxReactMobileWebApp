@@ -2,12 +2,6 @@ import React from "react";
 import Burger from "../Burger";
 import Button from "../../UI/Button/Button";
 import checkOutSummary from "./CheckOutSummary.css";
-const checkoutCanceledHandler = () => {
-  this.props.history.goBack();
-};
-const checkoutContinuedHandler = () => {
-  this.props.history.replace("/checkout/contact-data");
-};
 
 const checkOut = props => {
   return (
